@@ -34,8 +34,9 @@ img {
 
 .timer-container {
   position: absolute;
-  top: 50%;
+  top: 40%;
   height: 100vh;
+  margin: 0 auto;
 }
 
 .timer {
