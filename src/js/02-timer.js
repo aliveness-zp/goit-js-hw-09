@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import flatpickr from 'flatpickr';
+import Notiflix from 'notiflix';
 
 import 'flatpickr/dist/flatpickr.min.css';
 
@@ -32,7 +33,7 @@ const options = {
   onClose(selectedDates) {
     selectedDate = selectedDates[0].getTime();
     if (currentDate > selectedDate) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
       return;
     }
     refs.start.removeAttribute('disabled');

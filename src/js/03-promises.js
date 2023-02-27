@@ -1,32 +1,25 @@
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
-//   if (shouldResolve) {
-//     // Fulfill
-//   } else {
-//     // Reject
-//   }
-// }
+import Notiflix from 'notiflix';
 
 const form = document.querySelector('.form');
 
-form.addEventListener('submit', createPromise);
+form.addEventListener('submit', createPromises);
 
-let delay = Number(form.delay.value);
-let step = Number(form.step.value);
-let amount = Number(form.amount.value);
-
-function createPromise(e) {
+function createPromises(e) {
   e.preventDefault();
-  console.log('555');
+
+  let delay = Number(form.delay.value);
+  let step = Number(form.step.value);
+  let amount = Number(form.amount.value);
 
   for (let i = 0; i < amount; i += 1) {
     createPromise(i, delay)
       .then(({ position, delay }) => {
-        console.log(`Fulfilled promise ${position} in ${delay}ms`);
+        Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
-        console.log(`Rejected promise ${position} in ${delay}ms`);
+        Notiflix.Notify.failure(`Rejected promise ${position} in ${delay}ms`);
       });
+    delay += step;
   }
 }
 
@@ -36,7 +29,6 @@ function createPromise(position, delay) {
     setTimeout(() => {
       if (shouldResolve) {
         resolve({ position, delay });
-        //
       } else {
         reject({ position, delay });
       }
@@ -52,7 +44,7 @@ function createPromise(position, delay) {
 //   amount: document.querySelector('[name="amount"]'),
 // };
 
-// form.startBtn.addEventListener('submit', createPromise);
+// form.startBtn.addEventListener('click', createPromises);
 // form.formEl.addEventListener('input', getInputData);
 
 // let delay = 0;
@@ -63,23 +55,17 @@ function createPromise(position, delay) {
 //   delay = Number(form.delay.value);
 //   step = Number(form.step.value);
 //   amount = Number(form.amount.value);
-//   console.log({ delay, step, amount });
 
 //   return { delay, step, amount };
 // }
 
-// console.log({ delay, step, amount });
-
-// // console.log(amount);
-
-// function createPromise(e) {
+// function createPromises(e) {
 //   e.preventDefault();
 
 //   const { delay, step, amount } = getInputData(e);
-//   console.log(5555);
 
-//   for (let i = 0; i < Number(amount.value); i += 1) {
-//     createPromise(i + 1, Number(delay.value) + Number(step.value) * i)
+//   for (let i = 0; i < amount; i++) {
+//     createSinglePromise(i + 1, delay + step * i)
 //       .then(({ position, delay }) => {
 //         console.log(`Fulfilled promise ${position} in ${delay}ms`);
 //       })
@@ -89,25 +75,15 @@ function createPromise(position, delay) {
 //   }
 // }
 
-// console.log();
-
-// function createPromise(position, delay) {
+// function createSinglePromise(position, delay) {
 //   return new Promise((resolve, reject) => {
 //     setTimeout(() => {
 //       const shouldResolve = Math.random() > 0.3;
 //       if (shouldResolve) {
-//         resolve(`Fulfilled promise ${position} in ${delay}ms`);
+//         resolve({ position, delay });
 //       } else {
-//         reject(`Rejected promise ${position} in ${delay}ms`);
+//         reject({ position, delay });
 //       }
-//     }, 2000);
+//     }, delay);
 //   });
 // }
-
-// createPromise(2, 500)
-//   .then(({ position, delay }) => {
-//     console.log(`Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log('333');
-//   });
